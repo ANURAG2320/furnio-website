@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from 'react';
 import { Icon } from '@iconify/react';
+import { SignedIn, SignedOut, SignIn, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -34,7 +35,24 @@ export default function Navbar() {
             <Icon icon="mdi:cart-outline" width="20" height="20" />
             <span className="hidden md:inline hover:text-blue-500 cursor-pointer"><Link href="/cart">Cart</Link></span>
           </button>
+{/* USER SIGN-IN/ SIGN-UP */}
+<div className="hidden sm:flex items-center space-x-2">
 
+  <SignedOut>
+    <div className="flex space-x-2">
+      <SignInButton>
+        <button className="hover:text-blue-500 cursor-pointer text-sm">Sign In</button>
+      </SignInButton>
+      <SignUpButton>
+        <button className="hover:text-blue-500 cursor-pointer text-sm">Sign Up</button>
+      </SignUpButton>
+    </div>
+  </SignedOut>
+
+  <SignedIn>
+    <UserButton afterSignOutUrl="/" />
+  </SignedIn>
+</div>
           {/* Mobile Menu Button */}
           <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)}>
             <Icon icon={menuOpen ? 'mdi:close' : 'mdi:menu'} width="24" height="24" />

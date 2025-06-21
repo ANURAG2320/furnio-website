@@ -1,4 +1,12 @@
 import type { Metadata } from "next";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs'
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import Footer from "./components/layouts/footer";
@@ -23,12 +31,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={poppins.className}>
-        <Navbar />
+    
+
+<ClerkProvider>
+      <html lang="en">
+
+        <body className={poppins.className}>
+       
+
+          <Navbar />
         <CartProvider>{children}</CartProvider>
         <Footer />
-      </body>
-    </html>
-  );
+        </body>
+      </html>
+    </ClerkProvider>
+      );
 }
