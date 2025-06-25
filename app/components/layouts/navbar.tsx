@@ -37,16 +37,10 @@ export default function Navbar() {
           </button>
 {/* USER SIGN-IN/ SIGN-UP */}
 <div className="hidden sm:flex items-center space-x-2">
-
   <SignedOut>
-    <div className="flex space-x-2">
-      <SignInButton>
-        <button className="hover:text-blue-500 cursor-pointer text-sm">Sign In</button>
-      </SignInButton>
-      <SignUpButton>
-        <button className="hover:text-blue-500 cursor-pointer text-sm">Sign Up</button>
-      </SignUpButton>
-    </div>
+    <SignInButton mode="modal">
+      <button className="hover:text-blue-500 cursor-pointer text-sm">Sign In</button>
+    </SignInButton>
   </SignedOut>
 
   <SignedIn>

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useCart } from "./cart-context"; // Adjust path if different
+import { useCart } from "../components/context/cart-context"; // Adjust path if different
 
 const products = [
   {
