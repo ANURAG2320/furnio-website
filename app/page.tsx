@@ -1,8 +1,8 @@
-import RangeSection from "./components/rang-section";
-import HeroSection from "./components/hero-section";
-import OurProduct from "./components/our-products";
-import ExploreSection from "./components/explore-section";
-import ShareSetup from "./components/share-setup";
+import RangeSection from "./components/sections/rang-section";
+import HeroSection from "./components/sections/hero-section";
+import OurProduct from "./components/sections/our-products";
+import ExploreSection from "./components/sections/explore-section";
+import ShareSetup from "./components/sections/share-setup";
 
 export default function Home() {
   return (
