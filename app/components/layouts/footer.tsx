@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 // components/Footer.tsx
 export default function Footer() {
   return (
@@ -17,10 +19,10 @@ export default function Footer() {
         <div>
           <h3 className="text-lg font-medium  mb-4">Links</h3>
           <ul className="space-y-2 text-sm  mt-10">
-            <li className="hover:text-blue-500 mt-10 cursor-pointer">Home</li>
-            <li className="hover:text-blue-500 mt-10 cursor-pointer">Shop</li>
-            <li className="hover:text-blue-500  mt-10 cursor-pointer">About</li>
-            <li className="hover:text-blue-500 mt-10 cursor-pointer">Contact</li>
+            <li className="hover:text-blue-500 mt-10 cursor-pointer"><Link href="/">Home</Link></li>
+            <li className="hover:text-blue-500 mt-10 cursor-pointer"><Link href="/shop">Shop</Link></li>
+            <li className="hover:text-blue-500  mt-10 cursor-pointer"><Link href="/about">About</Link></li>
+            <li className="hover:text-blue-500 mt-10 cursor-pointer"><Link href="/contact">Contact</Link></li>
           </ul>
         </div>
 

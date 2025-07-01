@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
-import { useCart } from "../components/context/cart-context";
+import { useCart } from "../../components/context/cart-context";
+import Link from "next/link";
 
 export default function CartPage() {
   const { cartItems } = useCart();
@@ -35,7 +36,7 @@ export default function CartPage() {
           <div className="mt-10 border-t pt-6">
             <h2 className="text-2xl font-bold">Total: ₹{totalAmount}</h2>
             <button className="mt-4 bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition">
-              Checkout
+             <Link href='/checkout'>Checkout</Link> 
             </button>
           </div>
         </>

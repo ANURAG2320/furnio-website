@@ -2,49 +2,82 @@
 
 import { createContext, useContext, useState, ReactNode } from "react";
 
-type Product = {
+
+export type Product = {
   id: string;
   name: string;
   price: number;
   image: string;
-   quantity?: number; 
 };
 
-type CartContextType = {
-  cartItems: Product[];
-  addToCart: (product: Product) => void;
-  toastMessage: string | null;
+
+export type CartItem = Product & {
+  quantity: number;
 };
+
+
+interface CartContextType {
+  cartItems: CartItem[];
+  addToCart: (product: Product) => void;
+  removeFromCart: (productId: string) => void;
+  clearCart: () => void;
+  updateQuantity: (productId: string, quantity: number) => void;
+}
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [cartItems, setCartItems] = useState<Product[]>([]);
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
+  
   const addToCart = (product: Product) => {
-    setCartItems((prev) => [...prev, product]);
-    setToastMessage("✅ Added to cart");
+    setCartItems((prevItems) => {
+      const existingItem = prevItems.find((item) => item.id === product.id);
 
-    // Remove after 2 seconds
-    setTimeout(() => setToastMessage(null), 2000);
+      if (existingItem) {
+        return prevItems.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      } else {
+        return [...prevItems, { ...product, quantity: 1 }];
+      }
+    });
+  };
+
+  
+  const removeFromCart = (productId: string) => {
+    setCartItems((prevItems) => prevItems.filter((item) => item.id !== productId));
+  };
+
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
+  
+  const updateQuantity = (productId: string, quantity: number) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === productId ? { ...item, quantity } : item
+      )
+    );
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, toastMessage }}>
+    <CartContext.Provider
+      value={{ cartItems, addToCart, removeFromCart, clearCart, updateQuantity }}
+    >
       {children}
-      {/* Toast Component */}
-      {toastMessage && (
-        <div className="fixed bottom-6 right-6 bg-green-600 text-white px-4 py-2 rounded shadow-lg animate-fade-in-out z-50">
-          {toastMessage}
-        </div>
-      )}
     </CartContext.Provider>
   );
 };
 
+
 export const useCart = () => {
   const context = useContext(CartContext);
-  if (!context) throw new Error("useCart must be used within CartProvider");
+  if (!context) {
+    throw new Error("useCart must be used within a CartProvider");
+  }
   return context;
 };
