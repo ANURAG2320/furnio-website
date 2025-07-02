@@ -7,7 +7,7 @@ const HeroSection = () => {
       <section
         className="relative bg-cover bg-center bg-no-repeat h-[500px] md:h-[600px] flex items-center justify-end px-6 md:px-20"
         style={{
-          backgroundImage: `url('/hero-section.svg')`, // Replace with your image path
+          backgroundImage: `url('/hero-section.svg')`, 
         }}
       >
         {/* Right-aligned content */}
@@ -22,9 +22,11 @@ const HeroSection = () => {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
             tellus, luctus nec ullamcorper mattis.{" "}
           </p>
+          <Link href="/shop">
           <button className=" mt-10 px-10 py-4 bg-[#B88E2F] text-white rounded-md border-2 border-[#B88E2F] hover:bg-white hover:text-[#B88E2F] hover:border-2 border-[#B88E2F] transition">
-           <Link href="/shop">Shop Now</Link> 
+           Shop Now 
           </button>
+          </Link>
         </div>
       </section>
     </div>

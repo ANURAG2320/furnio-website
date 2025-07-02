@@ -15,7 +15,7 @@ const ShareSetup = () => {
         <section
           className="relative bg-cover bg-center bg-no-repeat h-[500px] md:h-[600px] flex items-top justify-center px-6 md:px-20"
           style={{
-            backgroundImage: `url('/share-with-us.svg')`, // Replace with your image path
+            backgroundImage: `url('/share-with-us.svg')`,
           }}
         ></section>
       </div>

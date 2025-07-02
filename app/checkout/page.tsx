@@ -1,14 +1,39 @@
 'use client';
 
 import { useCart } from '@/app/components/context/cart-context';
+import { loadStripe } from '@stripe/stripe-js';
+import { useState } from 'react';
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 export default function CheckoutPage() {
   const { cartItems } = useCart();
+  const [loading, setLoading] = useState(false);
 
   const totalAmount = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
+
+  const handleCheckout = async () => {
+    setLoading(true);
+    const stripe = await stripePromise;
+
+    const res = await fetch('/api/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cartItems }),
+    });
+
+    if (!res.ok) {
+      setLoading(false);
+      alert("Failed to initiate payment.");
+      return;
+    }
+
+    const data = await res.json();
+    window.location.href = data.url; // Redirect to Stripe Checkout
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -59,8 +84,12 @@ export default function CheckoutPage() {
           </div>
 
           <div className="flex justify-center items-center">
-            <button className="border border-black rounded-lg px-10 py-2 hover:bg-[#B88E2F] hover:text-white hover:border-white font-semibold">
-              PAY NOW
+            <button
+              onClick={handleCheckout}
+              disabled={loading}
+              className="border border-black rounded-lg px-10 py-2 hover:bg-[#B88E2F] hover:text-white hover:border-white font-semibold disabled:opacity-50"
+            >
+              {loading ? "Processing..." : "PAY NOW"}
             </button>
           </div>
         </div>

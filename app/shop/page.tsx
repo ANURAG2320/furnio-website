@@ -9,7 +9,7 @@ const Shop = () => {
         <section
           className="relative bg-cover bg-center bg-no-repeat h-[300px] md:h-[300px] flex items-center justify-center px-6 md:px-20"
           style={{
-            backgroundImage: `url('/contact-hero.svg')`, // Replace with your image path
+            backgroundImage: `url('/contact-hero.svg')`,
           }}
         >
           <div className="flex flex-col items-center">
