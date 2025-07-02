@@ -6,13 +6,14 @@ import {
   SignedIn,
   SignedOut,
   UserButton,
-} from '@clerk/nextjs'
+} from "@clerk/nextjs";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import Footer from "./components/layouts/footer";
 import Navbar from "./components/layouts/navbar";
 import { CartProvider } from "./components/context/cart-context";
 import { WishlistProvider } from "./components/context/wishlist-context";
+import { Toaster } from "react-hot-toast";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -32,21 +33,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    
-
-<ClerkProvider>
-  <WishlistProvider>
-      <html lang="en">
-
-        <body className={poppins.className}>
-       
-
-          <Navbar />
-        <CartProvider>{children}</CartProvider>
-        <Footer />
-        </body>
-      </html>
+    <ClerkProvider>
+      <WishlistProvider>
+        <html lang="en">
+          <body className={poppins.className}>
+            <Toaster position="bottom-right" />
+            <Navbar />
+            <CartProvider>{children}</CartProvider>
+            <Footer />
+          </body>
+        </html>
       </WishlistProvider>
     </ClerkProvider>
-      );
+  );
 }

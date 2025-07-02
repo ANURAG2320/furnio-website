@@ -6,7 +6,7 @@ export default function CheckoutPage() {
   const { cartItems } = useCart();
 
   const totalAmount = cartItems.reduce(
-    (acc, item) => acc + item.price,
+    (acc, item) => acc + item.price * item.quantity,
     0
   );
 
@@ -15,19 +15,17 @@ export default function CheckoutPage() {
       
       {/* Billing Details */}
       <div>
-        <h2 className="text-2xl font-bold mb-6">Billing details</h2>
+        <h2 className="text-2xl font-bold mb-6">Billing Details</h2>
         <form className="space-y-5">
           <div className="flex gap-4">
             <input type="text" placeholder="First Name" className="input-style w-1/2" />
             <input type="text" placeholder="Last Name" className="input-style w-1/2" />
           </div>
-          <input type="text" placeholder="Company Name (Optional)" className="input-style  w-1/2" />
-          
-          <input type="text" placeholder="Street address" className="input-style w-1/2" />
-          <input type="text" placeholder="Town / City" className="input-style w-1/2" />
-          
-          <input type="text" placeholder="ZIP code" className="input-style w-1/2" />
-          <input type="text" placeholder="Phone" className="input-style" />
+          <input type="text" placeholder="Company Name (Optional)" className="input-style w-full" />
+          <input type="text" placeholder="Street address" className="input-style w-full" />
+          <input type="text" placeholder="Town / City" className="input-style w-full" />
+          <input type="text" placeholder="ZIP code" className="input-style w-full" />
+          <input type="text" placeholder="Phone" className="input-style w-full" />
         </form>
       </div>
 
@@ -43,10 +41,8 @@ export default function CheckoutPage() {
 
           {cartItems.map((item) => (
             <div key={item.id} className="flex justify-between text-sm mb-2">
-              <span>
-                {item.name} × {item.quantity}
-              </span>
-              <span>₹{(item.price).toLocaleString()}</span>
+              <span>{item.name} × {item.quantity}</span>
+              <span>₹{(item.price * item.quantity).toLocaleString()}</span>
             </div>
           ))}
 
@@ -62,8 +58,10 @@ export default function CheckoutPage() {
             <span>₹{totalAmount.toLocaleString()}</span>
           </div>
 
-          <div className='flex justify-center items-center font-semibold border-black'>
-            <button className='border border-black rounded-lg px-10 py-2 hover:bg-[#B88E2F] hover:text-white hover:border-white'>PAY NOW</button>
+          <div className="flex justify-center items-center">
+            <button className="border border-black rounded-lg px-10 py-2 hover:bg-[#B88E2F] hover:text-white hover:border-white font-semibold">
+              PAY NOW
+            </button>
           </div>
         </div>
       </div>

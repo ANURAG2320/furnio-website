@@ -1,5 +1,6 @@
+import ProductsPage from "@/app/components/sections/products-page";
 import React from "react";
-import ProductsPage from "../components/sections/products-page";
+
 
 const Shop = () => {
   return (
